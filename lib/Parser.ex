@@ -17,9 +17,10 @@ defmodule Parser do
     |> Scraper.scrape_raw()
     # |> IO.inspect
     
-    student_course = 
+    student_class = 
     content |> Floki.find(".sCourse") 
     |> Scraper.scrape_nested()
+    |> String.last()
     # |> IO.inspect
 
     student_skill = 
@@ -37,7 +38,18 @@ defmodule Parser do
     student_image =
     {content, url} 
     |> parse_profile_image()
-    |> IO.inspect
+    # |> IO.inspect
+    
+    # Package and return entity
+    %{
+      name: student_name, 
+      class: student_class,
+      profession: student_job,
+      profile: student_desc,
+      skills: student_skill, 
+      contacts: student_contacts,
+      picture: student_image,
+    }
 
   end
 
