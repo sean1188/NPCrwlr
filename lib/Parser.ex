@@ -6,39 +6,40 @@ defmodule Parser do
     # Scrape dem juicy memes
     student_name = content |> Floki.find(".sName") 
     |> Scraper.scrape_raw()
-    # |> IO.inspect
+    |> IO.inspect
 
     student_desc = content |> Floki.find(".sDesc") 
     |> Scraper.scrape_raw()
-    # |> IO.inspect
+    |> IO.inspect
     
     student_job = 
     content |> Floki.find(".sJobRole") 
     |> Scraper.scrape_raw()
-    # |> IO.inspect
+    |> IO.inspect
     
     student_class = 
     content |> Floki.find(".sCourse") 
     |> Scraper.scrape_nested()
     |> String.last()
-    # |> IO.inspect
+    |> IO.inspect
 
     student_skill = 
     content |> Floki.find(".sSkill") 
     |> Scraper.scrape_nested()
-    # |> IO.inspect
+    |> IO.inspect
 
     student_contacts =
     content 
     |> Floki.find(".sContact") 
     |> Floki.find("a") 
     |> Floki.attribute("href")
-    # |> IO.inspect
+    |> IO.inspect
 
     student_image =
     {content, url} 
     |> parse_profile_image()
-    # |> IO.inspect
+    |> Enum.at(0)
+    |> IO.inspect
     
     # Package and return entity
     %{
@@ -61,6 +62,7 @@ defmodule Parser do
     |> Floki.attribute("href")
     |> Enum.filter(fn x -> String.starts_with?(x, "/2017/browsestudent/profile?id=") end )
     |> Enum.map(fn x -> "http://eportfolio.ict.np.edu.sg" <> x end )
+    |> Enum.drop(120)
 
   end
 

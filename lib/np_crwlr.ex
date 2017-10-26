@@ -7,14 +7,23 @@ defmodule NPCrwlr do
     |> Enum.map(&Task.async( fn -> maps_student_profile(&1) end))
     |> Enum.map(&Task.await/1)
     |> IO.inspect
+    |> Enum.map(&(maps_student_image(&1)))
 
   end
 
+  defp maps_student_image(data) do
+    if data.picture != nil do
+      Map.update(data, :picture, nil, &(get_img(&1)))
+    else
+      data
+    end
+  end
+
+
   defp maps_student_profile(profile) do
-    profile_data = 
-      profile
-      |> fetch()
-    profile = profile_data |> Parser.parse_student_profile()
+    profile
+    |> fetch()
+    |> Parser.parse_student_profile()
   end
 
   # Fetch content from page
@@ -30,10 +39,12 @@ defmodule NPCrwlr do
     end
   end
 
-
-  defp get(url) do
+  # Gets image
+  defp get_img(url) do
     case HTTPoison.get!(url) do
-      %HTTPoison.Response{status_code: 200, body: body} -> body
+      %HTTPoison.Response{status_code: 200, body: body} -> 
+        IO.puts "success"
+        body
       {:error, error} -> IO.inspect error
       _ -> IO.puts "no match"
     end
