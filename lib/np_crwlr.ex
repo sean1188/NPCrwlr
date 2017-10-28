@@ -4,14 +4,18 @@ defmodule NPCrwlr do
     url
     |> fetch()
     |> Parser.parse_student_portfolio()
-    |> Enum.map(&Task.async( fn -> maps_student_profile(&1) end))
-    |> Enum.map(&Task.await/1)
-    |> IO.inspect
-    |> Enum.map(&(maps_student_image(&1)))
+    |> Enum.map(&(maps_student_profile(&1)))
+    |> Enum.map(&(download_image(&1)))
+    |> save_data()
 
   end
 
-  defp maps_student_image(data) do
+  defp save_data(studentData) do
+    Database.connect() |> Database.drop_data()
+    Database.connect() |> Database.insert_results(studentData)
+  end
+
+  defp download_image(data) do
     if data.picture != nil do
       Map.update(data, :picture, nil, &(get_img(&1)))
     else

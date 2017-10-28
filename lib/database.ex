@@ -13,5 +13,6 @@ defmodule Database do
     conn
     |> Mongo.delete_many("StudentData", %{})
   end
+  
 
 end

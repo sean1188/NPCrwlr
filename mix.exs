@@ -23,7 +23,6 @@ defmodule NPCrwlr.Mixfile do
     [
       {:httpoison, "~> 0.13.0"},
       {:floki, "~> 0.18.1"},
-      {:gollum, "~> 0.2.1"},
       {:mongodb, ">= 0.0.0"},
       {:poolboy, ">= 0.0.0"},
       # {:dep_from_hexpm, "~> 0.3.0"},
