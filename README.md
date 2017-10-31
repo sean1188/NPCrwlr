@@ -6,5 +6,6 @@ Retrieved the Name, class, profession, bios, skills, contact details, and profil
 ### What the student cohort is about
 ![alt text](https://raw.githubusercontent.com/sean1188/NPCrwlr/master/ITwordcloud.png)
 ### Students' skills
-
+![alt text](https://raw.githubusercontent.com/sean1188/NPCrwlr/master/skillsWordCloud.png)
+lol M1cr0s0ft
 
